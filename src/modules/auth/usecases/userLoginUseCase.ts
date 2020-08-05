@@ -37,7 +37,9 @@ export class UserLoginUseCase {
             userId: user._id, 
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email
+            activated: user.activated,
+            email: user.email,
+            authorities: user.roles
         } as AuthenticatedUser;
 
         return authUser;
@@ -63,6 +65,7 @@ export interface AuthenticatedUser {
     firstName: string;
     lastName: number;
     email: string;
+    activated: boolean;
     token: string;
-    roles: string[];
+    authorities: string[];
 }
