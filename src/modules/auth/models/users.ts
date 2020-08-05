@@ -47,7 +47,8 @@ UserSchema.methods.toJSONAuth = function(): string {
         id: this._id,
         firstName: this.firstName,
         lastName: this.lastName,
-        email: this.email
+        email: this.email,
+        authorities: this.roles
     };
 
     return JSON.stringify(user);
