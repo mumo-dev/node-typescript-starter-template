@@ -1,0 +1,16 @@
+import { Request, Response, NextFunction } from "express";
+
+export const notFoundHandler = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+
+  const message = "Resource not found";
+
+  response.status(404).json({
+      status: 'error',
+      statusCode: 404,
+      message
+  });
+};
