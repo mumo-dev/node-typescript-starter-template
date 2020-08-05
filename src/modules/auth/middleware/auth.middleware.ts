@@ -9,14 +9,14 @@ export const isAuthenticated = (
 ) => {
 
     // Gather the jwt access token from the request header
-    const authHeader = request.headers['Authorization'] as string;
+    const authHeader = request.headers['authorization'] as string;
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) {
         return next(new HttpException(UNAUTHORIZED, 'Un Authorized'));
     }
 
     jsonwebtoken.verify(token, process.env.TOKEN_SECRET as string, (err: any, user: any) => {
-        // console.log(err)
+        console.log(err)
         if (err) {
             if (err.name == 'TokenExpiredError') {
                 return next(new HttpException(UNAUTHORIZED, 'Token Expired '));

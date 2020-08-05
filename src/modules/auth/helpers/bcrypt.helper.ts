@@ -10,7 +10,7 @@ export class BcyrptPasswordHelper {
     
     
      async comparePassword(plainPassword: string, hashedPassword: string): Promise<Boolean> {
-        const matched =  bcrypt.compare(plainPassword, hashedPassword);
+        const matched =  await bcrypt.compare(plainPassword, hashedPassword);
         return matched;
     }
 }

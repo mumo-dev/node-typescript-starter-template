@@ -1,7 +1,6 @@
 import { UserRepository } from "../repository/userRepository";
 import { BcyrptPasswordHelper } from "../helpers/bcrypt.helper";
 import { JwtHelper } from "../helpers/jwt.helper";
-import { request } from "express";
 
 
 export class UserLoginUseCase {
@@ -24,8 +23,9 @@ export class UserLoginUseCase {
         if (!user) {
             throw new UserNotFoundException(`User with email ${email}  Not Found`);
         }
+        
         // check if password match
-        const matched = this.bcryptPasswordHelper.comparePassword(password, user.password);
+        const matched = await this.bcryptPasswordHelper.comparePassword(password, user.password);
         if (!matched) {
             throw new PasswordDoesNotMatchException()
         }

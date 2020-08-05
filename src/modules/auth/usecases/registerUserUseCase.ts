@@ -20,7 +20,7 @@ export class RegisterUserUseCase {
         this.validateEmailHelper = validateEmailHelper;
     }
 
-    async registerClient(userRequest: User): Promise<User| null> {
+    async registerClient(userRequest: User): Promise<string| undefined> {
        
        //check that email does not exist
        const existingUser = await this.userRepository.findByEmail(userRequest.email);
@@ -36,8 +36,7 @@ export class RegisterUserUseCase {
         if(user != null) {
            this.validateEmailHelper.sendUserValidationEmail(user);
         }
-        return user;
-
+        return user?.toJSONAuth();
     }
 }
 

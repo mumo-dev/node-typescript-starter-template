@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Controller, Get, Post, Put, Delete } from "@overnightjs/core";
+import { Controller, Get, Post, Put, Delete, Middleware } from "@overnightjs/core";
 import {
   BAD_REQUEST,
   OK,
@@ -14,8 +14,8 @@ import HttpException, {
   ResourceNotFoundException,
   ValidationException,
 } from "../common/http-exception";
-import e from "cors";
 import { formatMongooseValidationErrors } from "../common/error-formatter";
+import { isAuthenticated, hasRole } from "../modules/auth/middleware/auth.middleware";
 
 @Controller("api/items/")
 export class ItemController {
@@ -25,6 +25,7 @@ export class ItemController {
     this.itemService = itemService;
   }
 
+  @Middleware([isAuthenticated, hasRole('CLIENT')])
   @Get("")
   private async findAll(req: Request, res: Response, next: NextFunction) {
     try {
