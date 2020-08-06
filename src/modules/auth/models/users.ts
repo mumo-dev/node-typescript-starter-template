@@ -7,7 +7,9 @@ export interface User extends Document {
     lastName: number;
     email: string;
     password: string;
-    activated: boolean;
+    accountActivated: boolean;
+    accountActivationCode: string,
+    activationCodeExpiryDate: Date
     roles: string[];
     toJSONAuth(): string;
 }
@@ -21,10 +23,7 @@ const UserSchema = new Schema<User>({
         type: String,
         required: [true, 'Last Name is required']
     },
-    activated: {
-        type: Boolean,
-        default: false
-    },
+   
     email: {
         type: String,
         trim: true,
@@ -38,7 +37,15 @@ const UserSchema = new Schema<User>({
         type: String,
         required: [true, 'Password is required']
     },
-    roles: [String]
+    roles: [String],
+
+    accountActivated: {
+        type: Boolean,
+        default: false
+    },
+    accountActivationCode: String,
+    activationCodeExpiryDate: Date
+
 }, { timestamps: true });
 
 
