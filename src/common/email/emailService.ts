@@ -1,7 +1,7 @@
 
 import * as nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-const hbs =  require( "nodemailer-express-handlebars" );
+const hbs = require("nodemailer-express-handlebars");
 
 export class EmailService {
 
@@ -16,14 +16,14 @@ export class EmailService {
                 user: process.env.SMTP_USER as string,
                 pass: process.env.SMTP_PASSWORD as string
             }
-        })
+        });
         this._transporter = nodemailer.createTransport(smtpOptions)
 
         const viewTemplateOptions = {
             viewEngine: {
-              partialsDir: __dirname + "/views/email/partials",
-              layoutsDir: __dirname + "/views/email/layouts",
-              extname: ".hbs"
+                layoutsDir: __dirname + "/views/layout",
+                partialsDir: __dirname + "/views/partials",
+                extname: ".hbs"
             },
             extName: ".hbs",
             viewPath: "views"
