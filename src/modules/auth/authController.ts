@@ -7,8 +7,6 @@ import { UserModel, User } from "./models/users";
 import { formatMongooseValidationErrors } from "../../common/error-formatter";
 import HttpException, { ValidationException } from "../../common/http-exception";
 import { CREATED, BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from "http-status-codes";
-import { EmailSenderHelper} from '../auth/helpers/emails/email.helper';
-import { EmailService } from "../../common/email/emailService";
 
 @Controller("api/user/")
 export class AuthController {
@@ -46,29 +44,7 @@ export class AuthController {
         }
     }
 
-    @Get("test/email")
-    private async testEmail(req: Request, res: Response, next: NextFunction) {
-
-        try {
-           
-            const emailService = new EmailService();
-            const emailSender = new EmailSenderHelper(emailService);
-            const user =  {
-                firstName: 'Sam',
-                lastName: 'Mumo',
-                email: 'samuelmumo.sm@gmail.com',
-                activationCode: '92828'
-            } as unknown as User;
-            emailSender.sendAccountActivationEmail(user);
-        } catch (e) {
-           console.log(e);
-
-        }finally{
-            res.sendStatus(200);
-        }
-    }
-
-
+    
     @Post("login")
     private async login(req: Request, res: Response, next: NextFunction) {
 
