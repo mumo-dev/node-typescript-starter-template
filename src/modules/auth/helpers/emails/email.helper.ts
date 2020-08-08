@@ -17,7 +17,8 @@ export class EmailSenderHelper {
         const templateData = {
             name: user.firstName +  ' ' + user.lastName,
             appUrl: process.env.APP_URL as string,
-            accountActivationCode: user.accountActivationCode
+            accountActivationCode: user.accountActivationCode,
+            layout: false
         };
         this._emailService.sendMail(from, to, subject,templateName, templateData);
     }

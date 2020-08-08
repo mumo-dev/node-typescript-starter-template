@@ -1,5 +1,8 @@
 
 import * as nodemailer from 'nodemailer';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as Handlebars from 'handlebars';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 const hbs = require("nodemailer-express-handlebars");
 
@@ -29,16 +32,21 @@ export class EmailService {
             viewPath: "views"
         };
 
-        this._transporter.use('compile', hbs(viewTemplateOptions));
+         this._transporter.use('compile', hbs(viewTemplateOptions));
     }
 
     sendMail(from: string, to: string, subject: string, templateName: string, templateData?: any) {
+        // Open template file
+        // const source = fs.readFileSync(path.join(__dirname, templateName+ '.hbs'), 'utf8');
+        // // Create email generator
+        // const template = Handlebars.compile(source);
         const options = {
             from: from,
             to: to,
             subject: subject,
             template: templateName,
             context: templateData
+            // html: template(templateData)
         };
 
         this._transporter.sendMail(options, (error, info) => {
