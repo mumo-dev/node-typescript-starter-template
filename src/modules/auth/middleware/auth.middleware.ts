@@ -16,7 +16,7 @@ export const isAuthenticated = (
     }
 
     jsonwebtoken.verify(token, process.env.TOKEN_SECRET as string, (err: any, user: any) => {
-        console.log(err)
+      //  console.log(err)
         if (err) {
             if (err.name == 'TokenExpiredError') {
                 return next(new HttpException(UNAUTHORIZED, 'Token Expired '));

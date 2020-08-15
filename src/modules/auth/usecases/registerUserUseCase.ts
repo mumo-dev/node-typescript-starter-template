@@ -38,7 +38,7 @@ export class RegisterUserUseCase {
         const activationCodeExpiryDate = new Date(now.getTime() + 30 * 60000)
         userRequest.activationCodeExpiryDate = activationCodeExpiryDate;
         const user = await this.userRepository.create(userRequest);
-        if (user != null) {
+        if (user) {
             this.validateEmailHelper.sendAccountActivationEmail(user);
         }
         return user?.toJSONAuth();
